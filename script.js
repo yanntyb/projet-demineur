@@ -1,11 +1,12 @@
 let grille = document.getElementById("grille");
 let timer = document.getElementById("timer");
+let nbBomb = 0;
 
 document.addEventListener('contextmenu', function (event) {
     event.preventDefault();
 });
 
-function afficher(slot, event, grille) {
+function afficher(slot, event, grille, nbBomb) {
     if (event.button === 0) {
         slot.style.backgroundColor = "cadetblue";
         if (slot.className.includes("bomb")) {
@@ -55,18 +56,36 @@ function afficher(slot, event, grille) {
         }
         icone.className = "far fa-flag";
         icone.style.color = "coral";
+        if(slot.getElementsByTagName("i") !== undefined){
+            if(slot.className.split(" ")[2] !== undefined){
+                if(slot.className.split(" ")[2] === "bomb"){
+                    slot.className += " captured"
+                }
+            }
+        }
         slot.appendChild(icone);
+        gagner(grille, nbBomb);
     }
 }
 
-function gagner(grille) {
+function gagner(grille, nbBomb) {
     let ligne = grille.getElementsByClassName("ligne");
+    let tab = []
     for (let i = 0; i < ligne.length; i++) {
-        let slot
+        let slot = ligne[i].getElementsByClassName("slot");
+        for(let j = 0; j < slot.length; j ++){
+            if(slot[j].className.includes("captured")){
+                tab.push(1);
+            }
+        }
     }
+    if(tab.length === nbBomb){
+        console.log("gagné");
+    }
+    console.log(tab)
 }
 
-function initGrid(width, grille) {
+function initGrid(width, grille, nbBomb) {
     for (let i = 0; i < width; i++) {
         let ligne = document.createElement("div");
         ligne.className = "ligne";
@@ -77,7 +96,7 @@ function initGrid(width, grille) {
             slot.style.height = "100%";
             slot.className = "slot 0";
             slot.addEventListener("mouseup", function (event) {
-                afficher(slot, event, grille);
+                afficher(slot, event, grille,nbBomb);
             })
             ligne.prepend(slot);
         }
@@ -86,15 +105,16 @@ function initGrid(width, grille) {
     return grille;
 }
 
-function initBomb(grille, nbBomb) {
+function initBomb(grille, chance) {
     let ligne = grille.getElementsByClassName("ligne");
+    let nbBombFunc = 0;
     for (let i = 0; i < ligne.length; i++) {
         let slot = ligne[i].getElementsByClassName("slot")
         for (let j = 0; j < slot.length; j++) {
-            let random = Math.trunc(Math.random() * nbBomb);
+            let random = Math.trunc(Math.random() * chance);
             if (random === 1) {
                 slot[j].className += " bomb";
-
+                nbBombFunc ++;
                 //gauche
                 if (slot[j - 1] !== undefined && slot[j - 1].className.split(" ")[2] === undefined) {
                     let classe = slot[j - 1].className.split(" ");
@@ -160,6 +180,8 @@ function initBomb(grille, nbBomb) {
             }
         }
     }
+    nbBomb = nbBombFunc;
+    console.log(nbBomb);
 }
 
 function adjacent(grille) {
@@ -236,7 +258,7 @@ function adjacent(grille) {
 }
 
 grille = initGrid(10, grille);
-initBomb(grille, 10);
+nbBomb = initBomb(grille, 10);
 
 window.setInterval(function(){
     adjacent(grille)
