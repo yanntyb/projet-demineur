@@ -1,6 +1,6 @@
 let grille = document.getElementById("grille");
 let timer = document.getElementById("timer");
-let nbBomb = 0;
+var nbBomb = 0;
 
 document.addEventListener('contextmenu', function (event) {
     event.preventDefault();
@@ -30,6 +30,8 @@ function afficher(slot, event, grille, nbBomb) {
                 }
                 grille = initGrid(10, grille);
                 initBomb(grille, 10);
+                let timer = document.getElementById("timer")
+                timer.getElementsByTagName("span")[0].innerHTML = "0"
             }, 1900);
 
         } else if (!slot.className.includes("bomb")) {
@@ -41,7 +43,12 @@ function afficher(slot, event, grille, nbBomb) {
             }
             let span = document.createElement("span");
             span.innerHTML = slot.className.split(" ")[1];
-            span.style.color = "coral";
+            if(span.innerHTML === "0"){
+                span.style.color = "cadetblue"
+            }
+            else{
+                span.style.color = "coral";
+            }
             slot.appendChild(span);
         }
 
@@ -68,7 +75,7 @@ function afficher(slot, event, grille, nbBomb) {
     }
 }
 
-function gagner(grille, nbBomb) {
+function gagner(grille) {
     let ligne = grille.getElementsByClassName("ligne");
     let tab = []
     for (let i = 0; i < ligne.length; i++) {
@@ -79,10 +86,10 @@ function gagner(grille, nbBomb) {
             }
         }
     }
-    if(tab.length === nbBomb){
+    if(tab.length === nbBomb ){
         console.log("gagné");
     }
-    console.log(tab)
+    console.log(tab,nbBomb)
 }
 
 function initGrid(width, grille, nbBomb) {
@@ -105,7 +112,7 @@ function initGrid(width, grille, nbBomb) {
     return grille;
 }
 
-function initBomb(grille, chance) {
+function initBomb(grille, chance, nbBomb) {
     let ligne = grille.getElementsByClassName("ligne");
     let nbBombFunc = 0;
     for (let i = 0; i < ligne.length; i++) {
@@ -113,8 +120,9 @@ function initBomb(grille, chance) {
         for (let j = 0; j < slot.length; j++) {
             let random = Math.trunc(Math.random() * chance);
             if (random === 1) {
-                slot[j].className += " bomb";
                 nbBombFunc ++;
+                slot[j].className += " bomb";
+
                 //gauche
                 if (slot[j - 1] !== undefined && slot[j - 1].className.split(" ")[2] === undefined) {
                     let classe = slot[j - 1].className.split(" ");
@@ -199,7 +207,12 @@ function adjacent(grille) {
                                 let span = document.createElement("span");
                                 span.innerHTML = parseInt(slot[j - 1].className.split(" ")[1]);
                                 slot[j - 1].style.backgroundColor = "cadetblue";
-                                span.style.color = "coral"
+                                if(span.innerHTML === "0"){
+                                    span.style.color = "cadetblue"
+                                }
+                                else{
+                                    span.style.color = "coral"
+                                }
                                 slot[j - 1].appendChild(span);
                             }
 
@@ -213,7 +226,12 @@ function adjacent(grille) {
                                 let span = document.createElement("span");
                                 span.innerHTML = parseInt(slot[j + 1].className.split(" ")[1]);
                                 slot[j + 1].style.backgroundColor = "cadetblue";
-                                span.style.color = "coral"
+                                if(span.innerHTML === "0"){
+                                    span.style.color = "cadetblue"
+                                }
+                                else{
+                                    span.style.color = "coral"
+                                }
                                 slot[j + 1].appendChild(span);
                             }
 
@@ -228,7 +246,12 @@ function adjacent(grille) {
                                     let span = document.createElement("span");
                                     span.innerHTML = parseInt(ligne[i - 1].getElementsByClassName("slot")[j].className.split(" ")[1]);
                                     ligne[i - 1].getElementsByClassName("slot")[j].style.backgroundColor = "cadetblue";
-                                    span.style.color = "coral"
+                                    if(span.innerHTML === "0"){
+                                        span.style.color = "cadetblue"
+                                    }
+                                    else{
+                                        span.style.color = "coral"
+                                    }
                                     ligne[i - 1].getElementsByClassName("slot")[j].appendChild(span);
                                 }
 
@@ -244,7 +267,13 @@ function adjacent(grille) {
                                     let span = document.createElement("span");
                                     span.innerHTML = ligne[i + 1].getElementsByClassName("slot")[j].className.split(" ")[1];
                                     ligne[i + 1].getElementsByClassName("slot")[j].style.backgroundColor = "cadetblue";
-                                    span.style.color = "coral"
+                                    if(span.innerHTML === "0"){
+                                        span.style.color = "cadetblue"
+                                    }
+                                    else{
+                                        span.style.color = "coral"
+                                    }
+
                                     ligne[i + 1].getElementsByClassName("slot")[j].appendChild(span);
                                 }
 
