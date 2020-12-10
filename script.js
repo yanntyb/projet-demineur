@@ -1,4 +1,5 @@
 let grille = document.getElementById("grille");
+let timer = document.getElementById("timer");
 
 document.addEventListener('contextmenu', function (event) {
     event.preventDefault();
@@ -240,3 +241,7 @@ initBomb(grille, 10);
 window.setInterval(function(){
     adjacent(grille)
 },200);
+
+window.setInterval(function (){
+    timer.getElementsByTagName("span")[0].innerHTML = 1 + parseInt(timer.getElementsByTagName("span")[0].innerHTML);
+},1000)
