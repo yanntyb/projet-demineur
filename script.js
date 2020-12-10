@@ -86,13 +86,16 @@ function gagner(grille) {
             }
         }
     }
-    if(tab.length === nbBomb ){
+    if(tab.length === nbBomb){
         console.log("gagné");
+        let winMessage = document.getElementById("win");
+        winMessage.style.display = "block";
     }
     console.log(tab,nbBomb)
 }
 
 function initGrid(width, grille) {
+
     for (let i = 0; i < width; i++) {
         let ligne = document.createElement("div");
         ligne.className = "ligne";
@@ -107,8 +110,11 @@ function initGrid(width, grille) {
             })
             ligne.prepend(slot);
         }
+
         grille.prepend(ligne);
     }
+    grille.style.animationName = "fonduEntrant";
+    grille.style.animationDuration = "2s";
     return grille;
 }
 

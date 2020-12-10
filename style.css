@@ -54,16 +54,35 @@ html {
     }
 }
 
+@keyframes fonduEntrant {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+
+}
+
 #timer {
+    position: absolute;
     width: min-content;
     height: min-content;
     color: coral;
     font-size: 4rem;
-    margin-left: 10%;
+    margin-left: 50%;
 }
 
 #timer > i > span {
     margin-left: 5%;
     position: fixed;
 
+}
+
+#win {
+    position: absolute;
+    background-color: cornflowerblue;
+    font-size: 3rem;
+    display: none;
+    color: red;
 }
