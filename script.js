@@ -92,7 +92,7 @@ function gagner(grille) {
     console.log(tab,nbBomb)
 }
 
-function initGrid(width, grille, nbBomb) {
+function initGrid(width, grille) {
     for (let i = 0; i < width; i++) {
         let ligne = document.createElement("div");
         ligne.className = "ligne";
@@ -112,7 +112,7 @@ function initGrid(width, grille, nbBomb) {
     return grille;
 }
 
-function initBomb(grille, chance, nbBomb) {
+function initBomb(grille, chance) {
     let ligne = grille.getElementsByClassName("ligne");
     let nbBombFunc = 0;
     for (let i = 0; i < ligne.length; i++) {
