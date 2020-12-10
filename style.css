@@ -27,7 +27,7 @@ html {
     height: 30vw;
 }
 
-.slot{
+.slot {
     border: 2px solid cadetblue;
     background-color: coral;
     display: flex;
@@ -51,4 +51,16 @@ html {
     to {
         opacity: 0%;
     }
+}
+
+#timer {
+    width: min-content;
+    height: min-content;
+    color: coral;
+    font-size: 4rem;
+    margin-left: 10%;
+}
+
+#timer > i > span {
+    margin-left: 20%;
 }
