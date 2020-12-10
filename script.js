@@ -90,6 +90,11 @@ function gagner(grille) {
         console.log("gagné");
         let winMessage = document.getElementById("win");
         winMessage.style.display = "block";
+        winMessage.style.animationName = "fonduEntrant";
+        winMessage.style.animationDuration = "2s";
+        window.setTimeout(function(){
+            winMessage.style.animationName = "";
+        },2000);
     }
     console.log(tab,nbBomb)
 }
